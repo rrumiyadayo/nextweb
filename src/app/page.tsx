@@ -1,9 +1,10 @@
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="">
-      <div style={{ padding: "30px", textAlign: "center" }}>
-          <a href="#">行っちゃうぞ！</a>
+      <div className="pt-10 " style={{ textAlign: "center" }}>
+        <Link href="/content/novel">行っちゃうぞ！</Link>
       </div>
     </div>
   );
