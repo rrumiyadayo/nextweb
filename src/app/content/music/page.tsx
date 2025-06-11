@@ -1,14 +1,17 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 
 export default function Music() {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
 
     const handlePlay = () => {
         if (audioRef.current) {
             audioRef.current.play();
+            audioRef.current.volume = 0.3;
             setIsPlaying(true);
         }
     }
@@ -20,19 +23,32 @@ export default function Music() {
         }
     }
 
+    const handleCurrentTimeUpdate = () => {
+        if (audioRef.current) {
+            setCurrentTime(audioRef.current.currentTime);
+        }
+    }
+
     return (
         <div style={{ textAlign: "center"}} className="mt-10">
             <h1>Echoes of Memoria</h1>
             <p>LUDICIN</p>
+            <Image
+                src="/content/music/Echoes%20of%20Memoria.jpg"
+                alt="Echoes of Memoria"
+                width={420}
+                height={420}
+                className="mx-auto m-3"
+            />
             <audio
                 ref = { audioRef } // React.useRef()フックで作成したオブジェクト
-                src = "/Echoes%20of%20Memoria.mp3"
+                src = "/content/music/Echoes of Memoria.mp3"
                 loop
 
-                onEnded = { () => setIsPlaying(false) }
                 onPlay = { () => setIsPlaying(true) }
                 onPause = { () => setIsPlaying(false) }
-            ></audio>
+                onTimeUpdate = { handleCurrentTimeUpdate }
+            />
             <div>
                 <button
                     onClick = { isPlaying ? handlePause : handlePlay }
@@ -45,6 +61,9 @@ export default function Music() {
                 >
                     { isPlaying ? "一時停止" : "再生" }
                 </button>
+            </div>
+            <div>
+                <p>現在の再生時間: { currentTime.toFixed(2) } 秒</p>
             </div>
         </div> 
   );
