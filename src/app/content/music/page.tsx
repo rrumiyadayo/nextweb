@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion"; // motionのみでOK
 
@@ -9,6 +9,8 @@ export default function Music() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [currentAnimationVariant, setCurrentAnimationVariant] = useState("static");
+    const [duration, setDuration] = useState<number>(0);
+    const [volume, setVolume] = useState<number>(0.3);
 
     const introAnimationVariants = {
         loop: {
